@@ -13,7 +13,7 @@ class ImageCache {
     private let cache:NSCache<NSString, UIImage>
     private var diskQueue:DispatchQueue
     private var diskCacheURL:URL
-    private let diskSizeLimit = 50 * 1024 * 1024;  // Disk cache size 50MB
+    private let diskSizeLimit = 100 * 1024 * 1024;  // Disk cache size 100MB
     private var diskCacheSize:Int{
         get {
             return UserDefaults.standard.integer(forKey: "diskCacheSize")
@@ -26,13 +26,14 @@ class ImageCache {
     
     private init(){
         cache = NSCache<NSString, UIImage>()
-        cache.totalCostLimit = 10 * 1024 * 1024;   // Memory cache size 10MB
+        cache.totalCostLimit = 20 * 1024 * 1024;   // Memory cache size 10MB
         diskQueue = DispatchQueue(label: "ImageCache Queue")
         diskCacheURL = FileManager.default.temporaryDirectory.appendingPathComponent("ImageCache-moments")
         try? FileManager.default.createDirectory(at: diskCacheURL, withIntermediateDirectories: true, attributes: nil)
     }
     
     func fetch(url:URL,completion:@escaping(UIImage?)->Void){
+        // try memory cache
         if let image = cache.object(forKey: url.absoluteString.MD5 as NSString) {
             print("memory cache hit:\(url.absoluteString)")
             DispatchQueue.main.async {
@@ -42,8 +43,8 @@ class ImageCache {
         } else {
             diskQueue.async {
                 // try disk cache
-                let fullURL = self.diskCacheURL.appendingPathComponent(url.absoluteString)
-                if let image = UIImage(contentsOfFile: fullURL.absoluteString){
+                let fullURL = self.diskCacheURL.appendingPathComponent(url.absoluteString.MD5)
+                if let image = UIImage(contentsOfFile: fullURL.path){
                     print("disk cache hit:\(url.absoluteString)")
                     // save it to memory
                     if let attr = try? FileManager.default.attributesOfItem(atPath: fullURL.path),let fileSize = attr[FileAttributeKey.size] as? Int  {
@@ -85,8 +86,9 @@ class ImageCache {
                 self.diskCacheSize = 0
             }
             do {
-                try data.write(to: self.diskCacheURL.appendingPathComponent(url.path))
+                try data.write(to: self.diskCacheURL.appendingPathComponent(url.absoluteString.MD5))
                 self.diskCacheSize += data.count
+                print("save disk cache:\(data.count/1024/1024) MB")
             } catch{
                 print("save disk cache failed.")
             }
