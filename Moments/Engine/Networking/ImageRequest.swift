@@ -15,7 +15,9 @@ struct ImageRequest:Request {
         .GET
     }
     
-    var parameters: [String : Any]?
+    var parameters: [String : Any]?{
+        return nil
+    }
     
     func decode(data: Data) -> Data? {
         return data

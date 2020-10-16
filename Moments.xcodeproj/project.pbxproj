@@ -16,6 +16,7 @@
 		30D4C7792538393E0042DE4A /* ProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C7782538393E0042DE4A /* ProfileRequest.swift */; };
 		30D4C77F25383AFD0042DE4A /* TweetsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C77E25383AFC0042DE4A /* TweetsRequest.swift */; };
 		30D4C78725383DC50042DE4A /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C78625383DC50042DE4A /* ImageRequest.swift */; };
+		30D4C797253921AD0042DE4A /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C796253921AD0042DE4A /* ImageCache.swift */; };
 		4DF729C9651CC5585A10A839 /* Pods_MomentsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F491165B8D0A372C391D7A8D /* Pods_MomentsUITests.framework */; };
 		B212E2A22F005778DE40AA23 /* Pods_MomentsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A866A31C18663FFE49D77D4 /* Pods_MomentsTests.framework */; };
 		CBF2C9D425349FB7001BB7A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF2C9D325349FB7001BB7A6 /* AppDelegate.swift */; };
@@ -54,6 +55,7 @@
 		30D4C7782538393E0042DE4A /* ProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRequest.swift; sourceTree = "<group>"; };
 		30D4C77E25383AFC0042DE4A /* TweetsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetsRequest.swift; sourceTree = "<group>"; };
 		30D4C78625383DC50042DE4A /* ImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
+		30D4C796253921AD0042DE4A /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		4A98B4CBE800571C3904B66B /* Pods-MomentsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MomentsUITests.release.xcconfig"; path = "Target Support Files/Pods-MomentsUITests/Pods-MomentsUITests.release.xcconfig"; sourceTree = "<group>"; };
 		54043E928E4F3754851FBF9C /* Pods_Moments.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moments.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75B5ECF9217F322F1D4A70ED /* Pods-Moments.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moments.release.xcconfig"; path = "Target Support Files/Pods-Moments/Pods-Moments.release.xcconfig"; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 		CBF2CA212534A126001BB7A6 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				30D4C796253921AD0042DE4A /* ImageCache.swift */,
 				30D4C5BB25352C180042DE4A /* Extensions.swift */,
 				30D4C6F62536DFF20042DE4A /* Networking */,
 			);
@@ -454,6 +457,7 @@
 				30D4C7012536E07E0042DE4A /* Profile.swift in Sources */,
 				CBF2C9D425349FB7001BB7A6 /* AppDelegate.swift in Sources */,
 				30D4C71B2537D4E10042DE4A /* Comment.swift in Sources */,
+				30D4C797253921AD0042DE4A /* ImageCache.swift in Sources */,
 				30D4C70C2537057D0042DE4A /* Tweet.swift in Sources */,
 				CBF2C9D625349FB7001BB7A6 /* SceneDelegate.swift in Sources */,
 				30D4C77F25383AFD0042DE4A /* TweetsRequest.swift in Sources */,
