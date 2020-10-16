@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		2B22E78EC549610DBE4AC4C4 /* Pods_Moments.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54043E928E4F3754851FBF9C /* Pods_Moments.framework */; };
 		30D4C5BC25352C180042DE4A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C5BB25352C180042DE4A /* Extensions.swift */; };
+		30D4C7012536E07E0042DE4A /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C7002536E07E0042DE4A /* Profile.swift */; };
+		30D4C70C2537057D0042DE4A /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C70B2537057D0042DE4A /* Tweet.swift */; };
+		30D4C71B2537D4E10042DE4A /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C71A2537D4E10042DE4A /* Comment.swift */; };
+		30D4C771253823710042DE4A /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C770253823710042DE4A /* Networking.swift */; };
+		30D4C7792538393E0042DE4A /* ProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C7782538393E0042DE4A /* ProfileRequest.swift */; };
+		30D4C77F25383AFD0042DE4A /* TweetsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C77E25383AFC0042DE4A /* TweetsRequest.swift */; };
+		30D4C78725383DC50042DE4A /* ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D4C78625383DC50042DE4A /* ImageRequest.swift */; };
 		4DF729C9651CC5585A10A839 /* Pods_MomentsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F491165B8D0A372C391D7A8D /* Pods_MomentsUITests.framework */; };
 		B212E2A22F005778DE40AA23 /* Pods_MomentsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A866A31C18663FFE49D77D4 /* Pods_MomentsTests.framework */; };
 		CBF2C9D425349FB7001BB7A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF2C9D325349FB7001BB7A6 /* AppDelegate.swift */; };
@@ -40,6 +47,13 @@
 /* Begin PBXFileReference section */
 		148A5954217CF89CC84AC4D4 /* Pods-Moments.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moments.debug.xcconfig"; path = "Target Support Files/Pods-Moments/Pods-Moments.debug.xcconfig"; sourceTree = "<group>"; };
 		30D4C5BB25352C180042DE4A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		30D4C7002536E07E0042DE4A /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		30D4C70B2537057D0042DE4A /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		30D4C71A2537D4E10042DE4A /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		30D4C770253823710042DE4A /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		30D4C7782538393E0042DE4A /* ProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRequest.swift; sourceTree = "<group>"; };
+		30D4C77E25383AFC0042DE4A /* TweetsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetsRequest.swift; sourceTree = "<group>"; };
+		30D4C78625383DC50042DE4A /* ImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRequest.swift; sourceTree = "<group>"; };
 		4A98B4CBE800571C3904B66B /* Pods-MomentsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MomentsUITests.release.xcconfig"; path = "Target Support Files/Pods-MomentsUITests/Pods-MomentsUITests.release.xcconfig"; sourceTree = "<group>"; };
 		54043E928E4F3754851FBF9C /* Pods_Moments.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moments.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75B5ECF9217F322F1D4A70ED /* Pods-Moments.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moments.release.xcconfig"; path = "Target Support Files/Pods-Moments/Pods-Moments.release.xcconfig"; sourceTree = "<group>"; };
@@ -104,6 +118,27 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		30D4C6F62536DFF20042DE4A /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				30D4C770253823710042DE4A /* Networking.swift */,
+				30D4C7782538393E0042DE4A /* ProfileRequest.swift */,
+				30D4C77E25383AFC0042DE4A /* TweetsRequest.swift */,
+				30D4C78625383DC50042DE4A /* ImageRequest.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		30D4C6FF2536E0660042DE4A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				30D4C7002536E07E0042DE4A /* Profile.swift */,
+				30D4C70B2537057D0042DE4A /* Tweet.swift */,
+				30D4C71A2537D4E10042DE4A /* Comment.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		654BD7F713787D6542AF988D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +176,7 @@
 			children = (
 				CBF2C9D325349FB7001BB7A6 /* AppDelegate.swift */,
 				CBF2C9D525349FB7001BB7A6 /* SceneDelegate.swift */,
+				30D4C6FF2536E0660042DE4A /* Model */,
 				CBF2CA212534A126001BB7A6 /* Engine */,
 				CBF2CA1D2534A11C001BB7A6 /* UI */,
 				CBF2CA222534A141001BB7A6 /* Others */,
@@ -178,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				30D4C5BB25352C180042DE4A /* Extensions.swift */,
+				30D4C6F62536DFF20042DE4A /* Networking */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -412,8 +449,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBF2C9D825349FB7001BB7A6 /* MainViewController.swift in Sources */,
+				30D4C78725383DC50042DE4A /* ImageRequest.swift in Sources */,
+				30D4C771253823710042DE4A /* Networking.swift in Sources */,
+				30D4C7012536E07E0042DE4A /* Profile.swift in Sources */,
 				CBF2C9D425349FB7001BB7A6 /* AppDelegate.swift in Sources */,
+				30D4C71B2537D4E10042DE4A /* Comment.swift in Sources */,
+				30D4C70C2537057D0042DE4A /* Tweet.swift in Sources */,
 				CBF2C9D625349FB7001BB7A6 /* SceneDelegate.swift in Sources */,
+				30D4C77F25383AFD0042DE4A /* TweetsRequest.swift in Sources */,
+				30D4C7792538393E0042DE4A /* ProfileRequest.swift in Sources */,
 				30D4C5BC25352C180042DE4A /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

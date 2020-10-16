@@ -7,6 +7,7 @@ target 'Moments' do
   pod 'SnapKit'
   pod 'ChameleonFramework'
   pod 'SwifterSwift'
+  pod 'SwiftyJSON'
 
   target 'MomentsTests' do
     inherit! :search_paths

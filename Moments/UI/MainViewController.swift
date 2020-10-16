@@ -17,6 +17,12 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         commonInit()
+        Networking.shared.send(ProfileRequest()) { (profile) in
+            
+        }
+        Networking.shared.send(TweetsRequest()) { (tweets) in
+            
+        }
     }
 }
 
