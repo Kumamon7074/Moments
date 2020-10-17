@@ -11,9 +11,13 @@ import SnapKit
 
 class TweetTableCell: UITableViewCell {
     
+    private var tweet:Tweet?
     private var contentLabelConstraint: Constraint?
     private var imageCollectionConstraint: Constraint?
     private var commentTableConstraint: Constraint?
+    
+    private let imageWidth:CGFloat = 70 * SCREEN_WIDTH_RATIO
+    private let imageSpace:CGFloat = 6
     
     lazy var avatarImageView:UIImageView = {
         let v = UIImageView()
@@ -39,8 +43,18 @@ class TweetTableCell: UITableViewCell {
     }()
     
     lazy var imageCollectionView:UICollectionView = {
-        let layout = UICollectionViewLayout()
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: imageWidth, height: imageWidth)
+        layout.minimumInteritemSpacing = imageSpace
+        layout.minimumLineSpacing = imageSpace
+        layout.scrollDirection = .vertical
+        
         let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        v.register(cellWithClass: TweetImageCollectionCell.self)
+        v.dataSource = self
+        v.backgroundColor = UIColor.flatWhite()
+        v.isScrollEnabled = false
+        v.showsVerticalScrollIndicator = false
         return v
     }()
     
@@ -58,6 +72,13 @@ class TweetTableCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         configureUI()
+        print("\(nicknameLabel.size.width)")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        tweet = nil
+        imageCollectionView.reloadData()
     }
     
     required init?(coder: NSCoder) {
@@ -65,6 +86,7 @@ class TweetTableCell: UITableViewCell {
     }
     
     public func update(tweet:Tweet){
+        self.tweet = tweet
         nicknameLabel.text = tweet.sender.nick
         if let content = tweet.content {
             contentLabel.text = content
@@ -75,6 +97,7 @@ class TweetTableCell: UITableViewCell {
         if let url = tweet.sender.avatarURL {
             avatarImageView.set(url: url)
         }
+        imageCollectionConstraint?.update(offset: calculateImageContainerHeight())
     }
     
 }
@@ -109,11 +132,49 @@ private extension TweetTableCell {
         contentLabel.snp.makeConstraints { (make) in
             make.leading.trailing.equalTo(nicknameLabel)
             make.top.equalTo(nicknameLabel.snp.bottom).offset(6)
+        }
+        imageCollectionView.snp.makeConstraints { (make) in
+            make.leading.equalTo(nicknameLabel.snp.leading)
+            make.top.equalTo(contentLabel.snp.bottom).offset(4)
+            make.width.equalTo(imageWidth*3+2*imageSpace)
+            imageCollectionConstraint = make.height.equalTo(calculateImageContainerHeight()).constraint
             make.bottom.lessThanOrEqualToSuperview().offset(-14)
         }
     }
     
     func configureUI(){
         avatarImageView.cornerRadius = 3
+    }
+}
+
+//MARK: -UICollectionViewDataSource
+extension TweetTableCell:UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        tweet?.images?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withClass: TweetImageCollectionCell.self, for: indexPath)
+        if let images = tweet?.images {
+            cell.update(url: images[indexPath.row])
+        }
+        return cell
+    }
+}
+
+//MARK: - Helpers
+extension TweetTableCell {
+    
+    func calculateImageContainerHeight()->CGFloat{
+        if let images = self.tweet?.images,images.count > 0 {
+            if images.count <= 3 {
+                return imageWidth
+            }else if images.count > 3 && images.count <= 6 {
+                return imageWidth*2 + imageSpace
+            }else {
+                return imageWidth*3 + 2*imageSpace
+            }
+        }
+        return 0
     }
 }

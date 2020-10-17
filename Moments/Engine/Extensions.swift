@@ -7,6 +7,7 @@
 
 import UIKit
 import CryptoKit
+import func AVFoundation.AVMakeRect
 
 extension UINavigationController {
     open override var childForStatusBarStyle: UIViewController? {
@@ -22,11 +23,24 @@ extension String {
 }
 
 extension UIImage {
-    func resized(for size: CGSize) -> UIImage? {
-        let renderer = UIGraphicsImageRenderer(size: size)
-        return renderer.image { (context) in
-            self.draw(in: CGRect(origin: .zero, size: size))
-        }
+    func resized(for targetSize: CGSize) -> UIImage? {
+          let widthRatio = targetSize.width / size.width
+          let heightRatio = targetSize.height / size.height
+          let scaleFactor = min(widthRatio, heightRatio)
+          let scaledImageSize = CGSize(
+              width: size.width * scaleFactor,
+              height: size.height * scaleFactor
+          )
+          let renderer = UIGraphicsImageRenderer(
+              size: scaledImageSize
+          )
+          let scaledImage = renderer.image { _ in
+              self.draw(in: CGRect(
+                  origin: .zero,
+                  size: scaledImageSize
+              ))
+          }
+          return scaledImage
     }
 }
 

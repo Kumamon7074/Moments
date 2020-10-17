@@ -90,13 +90,6 @@ extension MainViewController:UITableViewDataSource {
         cell.update(tweet: tweets[indexPath.row])
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let cell = cell as? TweetTableCell{
-            //cell.update(tweet: tweets[indexPath.row])
-        }
-    }
-    
 }
 
 //MARK: - UITableViewDelegate
