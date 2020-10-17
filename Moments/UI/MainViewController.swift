@@ -11,8 +11,7 @@ import SnapKit
 import SwifterSwift
 
 class MainViewController: UIViewController {
-    public let kHeaderHeight = 370*SCREEN_WIDTH_RATIO
-    
+    public let kHeaderHeight = 370*SCREEN_WIDTH_RATIO    
     private var tweets = [Tweet]()
     
     lazy var headerView:ProfileHeaderView = {
@@ -88,12 +87,13 @@ extension MainViewController:UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: TweetTableCell.self, for: indexPath)
+        cell.update(tweet: tweets[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? TweetTableCell{
-            cell.update(tweet: tweets[indexPath.row])
+            //cell.update(tweet: tweets[indexPath.row])
         }
     }
     

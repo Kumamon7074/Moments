@@ -14,7 +14,10 @@ struct Tweet {
     var comments:[Comment]?
     let sender:Profile
     
-    init(json:JSON) {
+    init?(json:JSON) {
+        guard json["content"].string != nil || json["images"].array != nil else {
+            return nil
+        }
         if let content = json["content"].string {
             self.content = content
         }

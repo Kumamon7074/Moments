@@ -26,7 +26,9 @@ struct TweetsRequest:Request {
         }
         var tweets = [Tweet]()
         for tweetJson in json.arrayValue {
-            tweets.append(Tweet(json: tweetJson))
+            if let tweet = Tweet(json: tweetJson) {
+                tweets.append(tweet)
+            }
         }
         return  tweets
     }

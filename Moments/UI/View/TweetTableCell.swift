@@ -7,8 +7,13 @@
 
 import UIKit
 import ChameleonFramework
+import SnapKit
 
 class TweetTableCell: UITableViewCell {
+    
+    private var contentLabelConstraint: Constraint?
+    private var imageCollectionConstraint: Constraint?
+    private var commentTableConstraint: Constraint?
     
     lazy var avatarImageView:UIImageView = {
         let v = UIImageView()
@@ -64,7 +69,8 @@ class TweetTableCell: UITableViewCell {
         if let content = tweet.content {
             contentLabel.text = content
         }else {
-            //contentLabel.text = nil
+            contentLabel.text = nil
+            
         }
         if let url = tweet.sender.avatarURL {
             avatarImageView.set(url: url)
@@ -96,7 +102,7 @@ private extension TweetTableCell {
             make.bottom.lessThanOrEqualToSuperview().offset(-14)
         }
         nicknameLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(avatarImageView.snp.trailing).offset(6)
+            make.leading.equalTo(avatarImageView.snp.trailing).offset(8)
             make.trailing.equalToSuperview().offset(-14)
             make.top.equalTo(avatarImageView.snp.top)
         }
