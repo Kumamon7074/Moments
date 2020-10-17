@@ -22,6 +22,12 @@ class TweetTableCell: UITableViewCell {
         return SCREEN_WIDTH - 45 - 14*2 - 8
     }
     
+    lazy var line:UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor.flatWhite()?.darken(byPercentage: 0.1)
+        return v
+    }()
+    
     lazy var avatarImageView:UIImageView = {
         let v = UIImageView()
         return v
@@ -126,7 +132,8 @@ private extension TweetTableCell {
             nicknameLabel,
             contentLabel,
             imageCollectionView,
-            commentTableView
+            commentTableView,
+            line
         ])
     }
     
@@ -154,10 +161,15 @@ private extension TweetTableCell {
             
         }
         commentTableView.snp.makeConstraints { (make) in
-            make.bottom.lessThanOrEqualToSuperview().offset(-14)
             make.leading.trailing.equalTo(nicknameLabel)
             make.top.equalTo(imageCollectionView.snp.bottom).offset(4)
             commentTableConstraint = make.height.equalTo(calculateCommentsContainterHeight()).constraint
+        }
+        line.snp.makeConstraints { (make) in
+            make.top.equalTo(commentTableView.snp.bottom).offset(14)
+            make.height.equalTo(isPad ? 1.0 : 0.5)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-14)
         }
     }
     

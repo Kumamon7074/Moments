@@ -30,6 +30,7 @@ class MainViewController: UIViewController {
         v.tableFooterView = UIView()
         v.showsVerticalScrollIndicator = false
         v.separatorInset = .zero
+        v.separatorColor = UIColor.clear
         v.register(cellWithClass: TweetTableCell.self)
         return v
     }()
