@@ -30,6 +30,7 @@
 		CBF2C9EB25349FB7001BB7A6 /* MomentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF2C9EA25349FB7001BB7A6 /* MomentsTests.swift */; };
 		CBF2C9F625349FB7001BB7A6 /* MomentsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF2C9F525349FB7001BB7A6 /* MomentsUITests.swift */; };
 		CBF2CA34253A8DF3001BB7A6 /* TweetImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF2CA33253A8DF3001BB7A6 /* TweetImageCollectionCell.swift */; };
+		CBF2CA3A253B014C001BB7A6 /* CommentTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF2CA39253B014C001BB7A6 /* CommentTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		CBF2C9F525349FB7001BB7A6 /* MomentsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentsUITests.swift; sourceTree = "<group>"; };
 		CBF2C9F725349FB7001BB7A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CBF2CA33253A8DF3001BB7A6 /* TweetImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetImageCollectionCell.swift; sourceTree = "<group>"; };
+		CBF2CA39253B014C001BB7A6 /* CommentTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableCell.swift; sourceTree = "<group>"; };
 		F335E2A7BCF2419261C0F6C7 /* Pods-MomentsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MomentsTests.release.xcconfig"; path = "Target Support Files/Pods-MomentsTests/Pods-MomentsTests.release.xcconfig"; sourceTree = "<group>"; };
 		F491165B8D0A372C391D7A8D /* Pods_MomentsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MomentsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE66944C38CF02877633D105 /* Pods-MomentsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MomentsTests.debug.xcconfig"; path = "Target Support Files/Pods-MomentsTests/Pods-MomentsTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				30D4C79C253942640042DE4A /* ProfileHeaderView.swift */,
 				30D4C7B8253981340042DE4A /* TweetTableCell.swift */,
 				CBF2CA33253A8DF3001BB7A6 /* TweetImageCollectionCell.swift */,
+				CBF2CA39253B014C001BB7A6 /* CommentTableCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				30D4C71B2537D4E10042DE4A /* Comment.swift in Sources */,
 				30D4C79D253942640042DE4A /* ProfileHeaderView.swift in Sources */,
 				30D4C797253921AD0042DE4A /* ImageCache.swift in Sources */,
+				CBF2CA3A253B014C001BB7A6 /* CommentTableCell.swift in Sources */,
 				30D4C70C2537057D0042DE4A /* Tweet.swift in Sources */,
 				CBF2C9D625349FB7001BB7A6 /* SceneDelegate.swift in Sources */,
 				30D4C77F25383AFD0042DE4A /* TweetsRequest.swift in Sources */,

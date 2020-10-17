@@ -12,12 +12,15 @@ import SnapKit
 class TweetTableCell: UITableViewCell {
     
     private var tweet:Tweet?
-    private var contentLabelConstraint: Constraint?
     private var imageCollectionConstraint: Constraint?
     private var commentTableConstraint: Constraint?
     
     private let imageWidth:CGFloat = 70 * SCREEN_WIDTH_RATIO
     private let imageSpace:CGFloat = 6
+    
+    private var nicknameLabelWidth:CGFloat {
+        return SCREEN_WIDTH - 45 - 14*2 - 8
+    }
     
     lazy var avatarImageView:UIImageView = {
         let v = UIImageView()
@@ -60,6 +63,13 @@ class TweetTableCell: UITableViewCell {
     
     lazy var commentTableView:UITableView = {
         let v = UITableView()
+        v.register(cellWithClass: CommentTableCell.self)
+        v.dataSource = self
+        v.rowHeight = UITableView.automaticDimension
+        v.estimatedRowHeight = 80
+        v.tableFooterView = UIView()
+        v.separatorStyle = .none
+        v.showsVerticalScrollIndicator = false
         return v
     }()
     
@@ -72,13 +82,13 @@ class TweetTableCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         configureUI()
-        print("\(nicknameLabel.size.width)")
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         tweet = nil
         imageCollectionView.reloadData()
+        commentTableView.reloadData()
     }
     
     required init?(coder: NSCoder) {
@@ -98,6 +108,9 @@ class TweetTableCell: UITableViewCell {
             avatarImageView.set(url: url)
         }
         imageCollectionConstraint?.update(offset: calculateImageContainerHeight())
+        commentTableConstraint?.update(offset: calculateCommentsContainterHeight())
+        commentTableView.reloadData()
+        imageCollectionView.reloadData()
     }
     
 }
@@ -138,16 +151,39 @@ private extension TweetTableCell {
             make.top.equalTo(contentLabel.snp.bottom).offset(4)
             make.width.equalTo(imageWidth*3+2*imageSpace)
             imageCollectionConstraint = make.height.equalTo(calculateImageContainerHeight()).constraint
+            
+        }
+        commentTableView.snp.makeConstraints { (make) in
             make.bottom.lessThanOrEqualToSuperview().offset(-14)
+            make.leading.trailing.equalTo(nicknameLabel)
+            make.top.equalTo(imageCollectionView.snp.bottom).offset(4)
+            commentTableConstraint = make.height.equalTo(calculateCommentsContainterHeight()).constraint
         }
     }
     
     func configureUI(){
         avatarImageView.cornerRadius = 3
+        commentTableView.layer.cornerRadius = 5
     }
 }
 
-//MARK: -UICollectionViewDataSource
+//MARK: - UITableViewDataSource
+extension TweetTableCell:UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        tweet?.comments?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withClass: CommentTableCell.self, for: indexPath)
+        if let comments = tweet?.comments {
+            cell.update(comment: comments[indexPath.row])
+        }
+        return cell
+    }
+    
+}
+
+//MARK: - UICollectionViewDataSource
 extension TweetTableCell:UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         tweet?.images?.count ?? 0
@@ -164,6 +200,17 @@ extension TweetTableCell:UICollectionViewDataSource {
 
 //MARK: - Helpers
 extension TweetTableCell {
+    
+    func calculateCommentsContainterHeight()->CGFloat{
+        var totalHeight:CGFloat = 0
+        if let comments = self.tweet?.comments,comments.count > 0 {
+            for comment in comments {
+                totalHeight += comment.attrContent.height(withConstrainedWidth: nicknameLabelWidth) + 4.0 //do not forget add label padding each cell
+            }
+            return totalHeight
+        }
+        return totalHeight
+    }
     
     func calculateImageContainerHeight()->CGFloat{
         if let images = self.tweet?.images,images.count > 0 {
