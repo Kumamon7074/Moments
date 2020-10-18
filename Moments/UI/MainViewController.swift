@@ -17,6 +17,9 @@ class MainViewController: UIViewController {
     private var profile:Profile?
     private var tweets = [Tweet]()
     private var moreTweets = [Tweet]()
+    private var shouldShowNavigationBar:Bool {
+        return tableView.contentOffset.y > kHeaderHeight - 44.0 - self.view.safeAreaInsets.top
+    }
     
     lazy var headerView:ProfileHeaderView = {
         let v = ProfileHeaderView(frame: CGRect(origin: .zero, size: CGSize.init(width: SCREEN_WIDTH, height: kHeaderHeight)))
@@ -40,7 +43,11 @@ class MainViewController: UIViewController {
     }()
 
     override var preferredStatusBarStyle: UIStatusBarStyle{
-        return .lightContent
+        if shouldShowNavigationBar {
+            return .darkContent
+        }else {
+            return .lightContent
+        }
     }
     
     override func viewDidLoad() {
@@ -56,6 +63,7 @@ private extension MainViewController {
     
     func commonInit() {
         navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationItem.title = "朋友圈"
         navigationController?.setNeedsStatusBarAppearanceUpdate()
         view.backgroundColor = UIColor.flatBlack()
         view.addSubview(tableView)
@@ -128,5 +136,15 @@ extension MainViewController:UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return kHeaderHeight
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        navigationController?.setNeedsStatusBarAppearanceUpdate()
+        if let nav = navigationController,shouldShowNavigationBar && nav.navigationBar.isHidden {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+        }
+        if let nav = navigationController,!shouldShowNavigationBar && !nav.navigationBar.isHidden {
+            navigationController?.setNavigationBarHidden(true, animated: true)
+        }
     }
 }
