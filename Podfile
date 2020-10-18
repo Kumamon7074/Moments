@@ -8,6 +8,7 @@ target 'Moments' do
   pod 'ChameleonFramework'
   pod 'SwifterSwift'
   pod 'SwiftyJSON'
+  pod 'MJRefresh'
 
   target 'MomentsTests' do
     inherit! :search_paths

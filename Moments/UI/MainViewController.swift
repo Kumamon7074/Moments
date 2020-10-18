@@ -11,8 +11,12 @@ import SnapKit
 import SwifterSwift
 
 class MainViewController: UIViewController {
-    public let kHeaderHeight = 370*SCREEN_WIDTH_RATIO    
+    public let kHeaderHeight = 370*SCREEN_WIDTH_RATIO
+    private var refreshHeader:MJRefreshNormalHeader?
+    private var loadMoreFooter:MJRefreshAutoFooter?
+    private var profile:Profile?
     private var tweets = [Tweet]()
+    private var moreTweets = [Tweet]()
     
     lazy var headerView:ProfileHeaderView = {
         let v = ProfileHeaderView(frame: CGRect(origin: .zero, size: CGSize.init(width: SCREEN_WIDTH, height: kHeaderHeight)))
@@ -43,7 +47,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         commonInit()
         setupConstraints()
-        updateData()
+        fetchData()
     }
 }
 
@@ -55,6 +59,17 @@ private extension MainViewController {
         navigationController?.setNeedsStatusBarAppearanceUpdate()
         view.backgroundColor = UIColor.flatBlack()
         view.addSubview(tableView)
+        refreshHeader = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+            self?.fetchData()
+        })
+        loadMoreFooter = MJRefreshAutoFooter(refreshingBlock:{ [weak self] in
+            guard let `self` = self else {return}
+            self.tweets = self.tweets + self.moreTweets
+            self.tableView.reloadData()
+            self.loadMoreFooter?.endRefreshing()
+        })
+        tableView.mj_header = refreshHeader
+        tableView.mj_footer = loadMoreFooter
     }
     
     func setupConstraints(){
@@ -63,19 +78,30 @@ private extension MainViewController {
         }
     }
     
-    func updateData(){
+    func fetchData(){
+        let group = DispatchGroup()
+        group.enter()
         Networking.shared.send(ProfileRequest()) { [weak self](profile) in
             guard let `self` = self else {return}
-            if let profile = profile {
-                self.headerView.update(profile: profile)
-            }
+            self.profile = profile
+
+            group.leave()
         }
+        group.enter()
         Networking.shared.send(TweetsRequest()) { [weak self](tweets) in
             guard let `self` = self else {return}
             if let tweets = tweets {
-                self.tweets = tweets
-                self.tableView.reloadData()
+                self.tweets = Array(tweets[0...4])
+                self.moreTweets = Array(tweets[5..<tweets.count])
             }
+            group.leave()
+        }
+        group.notify(queue: .main) {
+            if let profile = self.profile {
+                self.headerView.update(profile: profile)
+            }
+            self.tableView.reloadData()
+            self.refreshHeader?.endRefreshing()
         }
     }
 }
